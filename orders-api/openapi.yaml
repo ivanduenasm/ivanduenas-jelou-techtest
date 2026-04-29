@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: Orders API
+  description: Microservice for managing order state, idempotency, and transactional stock enforcement.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3002
+paths:
+  /health:
+    get:
+      summary: Health Check
+      responses:
+        '200':
+          description: Service is operational
+  /orders:
+    post:
+      summary: Create a new order (Stock reservation)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer_id
+                - items
+              properties:
+                customer_id:
+                  type: integer
+                items:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - product_id
+                      - qty
+                    properties:
+                      product_id:
+                        type: integer
+                      qty:
+                        type: integer
+      responses:
+        '201':
+          description: Order successfully reserved
+        '400':
+          description: Out of stock or invalid request
+    get:
+      summary: Search and query orders via pagination cursor
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: from
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: cursor
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Results fetched successfully
+  /orders/{id}:
+    get:
+      summary: Get detailed order record
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Order details
+  /orders/{id}/confirm:
+    post:
+      summary: Confirm Order (Release allocation)
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Order finalized
+  /orders/{id}/cancel:
+    post:
+      summary: Rollback and restore stock allocation
+      responses:
+        '200':
+          description: Order canceled successfully
+  /orders/idempotency/{key}:
+    get:
+      summary: Retrieve cached idempotent response records
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Idempotent payload match
+        '404':
+          description: Key reference not discovered

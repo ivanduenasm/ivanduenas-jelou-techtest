@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: jelou_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: b2b_orders
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+
+  customers-api:
+    build: ./customers-api
+    container_name: jelou_customers_api
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=b2b_orders
+      - SERVICE_TOKEN=SUPER_SECRET_SERVICE_TOKEN
+    depends_on:
+      - db
+
+  orders-api:
+    build: ./orders-api
+    container_name: jelou_orders_api
+    restart: always
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=b2b_orders
+      - SERVICE_TOKEN=SUPER_SECRET_SERVICE_TOKEN
+      - CUSTOMERS_API_URL=http://customers-api:3001
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:

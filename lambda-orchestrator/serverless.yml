@@ -1,0 +1,22 @@
+service: lambda-orchestrator
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    CUSTOMERS_API_URL: ${env:CUSTOMERS_API_URL, 'http://localhost:3001'}
+    ORDERS_API_URL: ${env:ORDERS_API_URL, 'http://localhost:3002'}
+    SERVICE_TOKEN: SUPER_SECRET_SERVICE_TOKEN
+
+functions:
+  createAndConfirmOrder:
+    handler: handler.orchestrate
+    events:
+      - http:
+          path: orchestrator/create-and-confirm-order
+          method: post
+          cors: true
+
+plugins:
+  - serverless-offline

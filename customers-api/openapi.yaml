@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: Customers API
+  description: Microservice for managing B2B Customer validation and metadata.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+paths:
+  /health:
+    get:
+      summary: Health Check
+      responses:
+        '200':
+          description: Service is operational
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: OK
+                  service:
+                    type: string
+                    example: customers-api
+  /internal/customers/{id}:
+    get:
+      summary: Get Customer Details (Internal)
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The unique customer identifier.
+      responses:
+        '200':
+          description: Customer found successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  phone:
+                    type: string
+        '404':
+          description: Customer not found
+        '401':
+          description: Unauthorized (Missing or invalid Bearer token)
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

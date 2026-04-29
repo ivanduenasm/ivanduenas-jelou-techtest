@@ -1,0 +1,20 @@
+{
+  "name": "lambda-orchestrator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serverless offline --httpPort 3003 --lambdaPort 3004",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ivan Dueñas",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "axios": "^1.15.2",
+    "dotenv": "^17.4.2",
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.3"
+  }
+}

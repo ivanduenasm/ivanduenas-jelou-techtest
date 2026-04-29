@@ -1,0 +1,108 @@
+{
+  "info": {
+    "name": "JelouAI Technical Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authenticate Operator (JWT)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"operator\",\n  \"password\": \"secret123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["login"]
+        }
+      }
+    },
+    {
+      "name": "Create Customer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{operator_jwt}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Empresa Prueba SAS\",\n  \"email\": \"ventas@prueba.co\",\n  \"phone\": \"+573005550000\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/customers",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["customers"]
+        }
+      }
+    },
+    {
+      "name": "Create Product",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{operator_jwt}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sku\": \"SKU-CAFE-PROMO\",\n  \"name\": \"Café Colombiano 1kg\",\n  \"price_cents\": 45000,\n  \"stock\": 500\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3002/products",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3002",
+          "path": ["products"]
+        }
+      }
+    },
+    {
+      "name": "Run Orchestrator Full Flow",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customer_id\": 1,\n  \"items\": [\n    { \"product_id\": 1, \"qty\": 2 }\n  ],\n  \"idempotency_key\": \"idemp-test-key-999\",\n  \"correlation_id\": \"corr-999\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3003/dev/orchestrator/create-and-confirm-order",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3003",
+          "path": ["dev", "orchestrator", "create-and-confirm-order"]
+        }
+      }
+    }
+  ]
+}
