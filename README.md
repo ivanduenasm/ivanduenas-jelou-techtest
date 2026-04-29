@@ -125,5 +125,20 @@ Para aprovisionar la infraestructura serverless directamente en Amazon Web Servi
 cd lambda-orchestrator
 serverless deploy --stage prod
 ```
-> [!IMPORTANT]
-> Asegúrese de actualizar las variables `CUSTOMERS_API_BASE` y `ORDERS_API_BASE` en `serverless.yml` con los endpoints públicos válidos una vez montados en la nube.
+
+### 🎯 Endpoint Público de Prueba Activo
+Para facilitar la revisión sin dependencias locales, se encuentra disponible un despliegue funcional en vivo:
+* **URL:** `https://mi2mr4ks93.execute-api.us-east-1.amazonaws.com/dev/orchestrator/create-and-confirm-order`
+* **Método:** `POST`
+* **Payload de prueba:**
+```json
+{
+  "customer_id": 3,
+  "items": [
+    { "product_id": 4, "qty": 1 }
+  ],
+  "idempotency_key": "eval-test-key-101",
+  "correlation_id": "eval-run"
+}
+```
+
