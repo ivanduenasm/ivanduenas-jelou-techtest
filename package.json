@@ -1,0 +1,13 @@
+{
+  "name": "jelou-gateway-proxy",
+  "version": "1.0.0",
+  "description": "Unified gateway for customers and orders APIs",
+  "main": "gateway-proxy.js",
+  "scripts": {
+    "start": "node gateway-proxy.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "http-proxy-middleware": "^3.0.0"
+  }
+}

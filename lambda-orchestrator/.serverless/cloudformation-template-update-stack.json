@@ -162,7 +162,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/lambda-orchestrator/dev/1777421712679-2026-04-29T00:15:12.679Z/lambda-orchestrator.zip"
+          "S3Key": "serverless/lambda-orchestrator/dev/1777422722545-2026-04-29T00:32:02.545Z/lambda-orchestrator.zip"
         },
         "Handler": "handler.orchestrate",
         "Runtime": "nodejs20.x",
@@ -171,8 +171,8 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "CUSTOMERS_API_BASE": "https://light-cats-fetch.loca.lt",
-            "ORDERS_API_BASE": "https://honest-taxis-travel.loca.lt",
+            "CUSTOMERS_API_BASE": "https://catalyst-trance-capsize.ngrok-free.dev/customers",
+            "ORDERS_API_BASE": "https://catalyst-trance-capsize.ngrok-free.dev/orders",
             "SERVICE_TOKEN": "SUPER_SECRET_SERVICE_TOKEN"
           }
         },
@@ -187,14 +187,14 @@
         "CreateAndConfirmOrderLogGroup"
       ]
     },
-    "CreateAndConfirmOrderLambdaVersionLMUxvFELDM2KVXcubJD8rA8ohmm5zJcSQdmAMaba9E": {
+    "CreateAndConfirmOrderLambdaVersionPKEQujNd69gcSwflwfKDb8G3rBQOhFuO5VU3PjZMc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateAndConfirmOrderLambdaFunction"
         },
-        "CodeSha256": "VDC3BXw7dn0EVJs4z5BU5m+3eO3j+29HFi5US6g3xpA="
+        "CodeSha256": "29rt+855IoPlo48Y5QJrQieG5DJsDjJuCTZN5575hns="
       }
     },
     "ApiGatewayRestApi": {
@@ -327,7 +327,7 @@
         "CreateAndConfirmOrderLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1777421701856": {
+    "ApiGatewayDeployment1777422700726": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -390,7 +390,7 @@
     "CreateAndConfirmOrderLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateAndConfirmOrderLambdaVersionLMUxvFELDM2KVXcubJD8rA8ohmm5zJcSQdmAMaba9E"
+        "Ref": "CreateAndConfirmOrderLambdaVersionPKEQujNd69gcSwflwfKDb8G3rBQOhFuO5VU3PjZMc"
       },
       "Export": {
         "Name": "sls-lambda-orchestrator-dev-CreateAndConfirmOrderLambdaFunctionQualifiedArn"
