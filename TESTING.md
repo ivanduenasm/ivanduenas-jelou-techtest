@@ -25,10 +25,14 @@ Garantiza que la validación del cliente, el descuento de inventario y la creaci
 ```
 * **Resultado esperado:** `201 Created` - Retorno de información del cliente + desglose totalizado de la orden.
 
+![Captura Caso 1](docs/screenshots/caso1_happy_path.png)
+
 ### 🔵 Caso 2: Validación de Idempotencia
 Ejecuta el re-envío del payload anterior. Evita duplicación transaccional mediante lectura de caché.
 * **JSON Request:** *Mismo payload anterior (abc-123)*
 * **Resultado esperado:** `200 OK` - Respuesta idéntica extraída directamente desde el historial de idempotencia.
+
+![Captura Caso 2](docs/screenshots/caso2_idempotencia.png)
 
 ### 🔴 Caso 3: Validación de Stock Insuficiente
 Control de seguridad sobre inventarios en cero.
@@ -44,6 +48,8 @@ Control de seguridad sobre inventarios en cero.
 * **Resultado esperado:** `400 Bad Request`
 * **Mensaje de Error:** `"Insufficient stock for Product 6 (Requested: 1, Available: 0)"`
 
+![Captura Caso 3](docs/screenshots/caso3_stock.png)
+
 ### 🔴 Caso 4: Validación de Cliente Inexistente
 Filtro preventivo sobre integraciones huérfanas.
 * **JSON Request:**
@@ -57,3 +63,6 @@ Filtro preventivo sobre integraciones huérfanas.
 ```
 * **Resultado esperado:** `404 Not Found`
 * **Mensaje de Error:** `"Customer not found"`
+
+![Captura Caso 4](docs/screenshots/caso4_cliente.png)
+
