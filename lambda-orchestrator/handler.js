@@ -27,7 +27,9 @@ module.exports.orchestrate = async (event) => {
 
     // 0. Check Idempotency
     try {
-      const checkRes = await axios.get(`${ORDERS_URL}/orders/idempotency/${idempotency_key}`);
+      const checkRes = await axios.get(`${ORDERS_URL}/orders/idempotency/${idempotency_key}`, {
+        headers: { 'Bypass-Tunnel-Reminder': 'true' }
+      });
       if (checkRes.data) {
         // Key already exists, bypass workflow completely
         return {
@@ -56,7 +58,10 @@ module.exports.orchestrate = async (event) => {
       const url = `${CUSTOMERS_URL}/internal/customers/${customer_id}`;
       console.log('Hitting Customer API:', url);
       const customerRes = await axios.get(url, {
-        headers: { Authorization: `Bearer ${SERVICE_TOKEN}` }
+        headers: { 
+          Authorization: `Bearer ${SERVICE_TOKEN}`,
+          'Bypass-Tunnel-Reminder': 'true'
+        }
       });
       customer = customerRes.data;
     } catch (error) {
@@ -78,7 +83,12 @@ module.exports.orchestrate = async (event) => {
       const orderRes = await axios.post(
         `${ORDERS_URL}/orders`,
         { customer_id, items },
-        { headers: { Authorization: `Bearer ${SERVICE_TOKEN}` } }
+        { 
+          headers: { 
+            Authorization: `Bearer ${SERVICE_TOKEN}`,
+            'Bypass-Tunnel-Reminder': 'true'
+          } 
+        }
       );
       order = orderRes.data;
     } catch (error) {
@@ -98,7 +108,8 @@ module.exports.orchestrate = async (event) => {
         { 
           headers: { 
             'X-Idempotency-Key': idempotency_key,
-            Authorization: `Bearer ${SERVICE_TOKEN}`
+            Authorization: `Bearer ${SERVICE_TOKEN}`,
+            'Bypass-Tunnel-Reminder': 'true'
           } 
         }
       );
