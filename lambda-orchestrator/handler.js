@@ -21,8 +21,8 @@ module.exports.orchestrate = async (event) => {
       };
     }
 
-    const CUSTOMERS_URL = process.env.CUSTOMERS_API_URL || 'http://localhost:3001';
-    const ORDERS_URL = process.env.ORDERS_API_URL || 'http://localhost:3002';
+    const CUSTOMERS_URL = process.env.CUSTOMERS_API_BASE || process.env.CUSTOMERS_API_URL || 'http://localhost:3001';
+    const ORDERS_URL = process.env.ORDERS_API_BASE || process.env.ORDERS_API_URL || 'http://localhost:3002';
     const SERVICE_TOKEN = process.env.SERVICE_TOKEN || 'SUPER_SECRET_SERVICE_TOKEN';
 
     // 0. Check Idempotency

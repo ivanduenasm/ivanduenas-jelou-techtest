@@ -5,8 +5,8 @@ provider:
   runtime: nodejs20.x
   region: us-east-1
   environment:
-    CUSTOMERS_API_URL: ${env:CUSTOMERS_API_URL, 'http://localhost:3001'}
-    ORDERS_API_URL: ${env:ORDERS_API_URL, 'http://localhost:3002'}
+    CUSTOMERS_API_BASE: ${env:CUSTOMERS_API_BASE, 'http://localhost:3001'}
+    ORDERS_API_BASE: ${env:ORDERS_API_BASE, 'http://localhost:3002'}
     SERVICE_TOKEN: SUPER_SECRET_SERVICE_TOKEN
 
 functions:
