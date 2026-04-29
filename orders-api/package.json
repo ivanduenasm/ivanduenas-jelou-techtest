@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
+    "build": "echo 'No build step required for vanilla JS'",
+    "migrate": "echo 'Migrations executed automatically on Docker startup'",
+    "seed": "echo 'Seeds executed automatically on Docker startup'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
