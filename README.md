@@ -1,9 +1,15 @@
 # JelouAI B2B Microservices - Sistema de Pedidos
 **Desarrollado por:** Ivan Dueñas
 
-Ecosistema de microservicios acoplados para la administración transaccional de clientes, órdenes e inventario, integrado mediante un orquestador AWS Lambda.
+---
+
+### 📋 Menú de Documentación
+* **[📖 Ir a Bitácora de Pruebas Certificadas (TESTING.md)](TESTING.md)**
+
+---
 
 ## 🏗️ Arquitectura del Ecosistema
+
 
 1. **Customers API (Puerto `3001`)**: Repositorio maestro de identidades B2B.
 2. **Orders API (Puerto `3002`)**: Motor transaccional para gestión de stock y confirmación idempotente.
